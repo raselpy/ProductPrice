@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Vue Project</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="row" style="padding-top: 100px;">
+            <div class="col-lg-4 col-md-4"></div>
+            <div class="ui card col-lg-4 col-md-4">
+                <div class="content">
+                    <div class="header" style="text-align: center;">Product Pice List</div>
+                </div>
+                <div class="content">
+                    <div class="ui small feed">
+                        <div class="event">
+                            <div class=" content">
+
+                                <div>
+                                    <form @submit.prevent="addItem">
+                                        <input type="text" v-model="newItem">
+
+                                    </form>
+                                    <ul v-for="(item , index) in items" :key="index">
+
+                                        <li>
+                                            <button type="button" @click="removeItem(index)" class="mini negative ui button">--</button> {{item.name}} --
+                                            <input type="text" v-model="item.price">
+                                        </li>
+
+                                    </ul>
+
+                                    <p>Total = {{total}}</p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4"></div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                items: [{
+                    name: 'rasel',
+                    price: 23
+                }, {
+                    name: 'happy',
+                    price: 230
+                }, ],
+                newItem: ' ',
+            },
+
+            computed: {
+                total() {
+                    var total = 0
+                    this.items.forEach(item => {
+                        total += parseFloat(item.price)
+                    })
+                    return total
+                }
+            },
+            methods: {
+                addItem() {
+                    this.items.push({
+                        name: this.newItem,
+                        price: 0,
+                    })
+                },
+                removeItem(index) {
+                    this.items.splice(index, 1)
+                }
+            }
+        })
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
